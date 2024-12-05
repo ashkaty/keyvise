@@ -28,8 +28,7 @@ function ShortCutList(): JSX.Element {
         const filterList = () => {
             
             const updatedList = shortCutList.filter((shortcut) => {
-                const hasInvalidKey = Array.from(keysPressed).some((pressedKey) => !shortcut.keys.includes(pressedKey));
-                return !hasInvalidKey;
+                return hasInvalidKey(shortcut)
             })
             console.log("Filtered List: ", updatedList)
 
@@ -51,6 +50,14 @@ function ShortCutList(): JSX.Element {
         }
     }, [keysPressed]);
     
+    const hasInvalidKey = (shortcut:ShortCut) => {
+        const keyPressedArray = Array.from(keysPressed)
+            for (let i = 0; i < keyPressedArray.length; i++){
+                if (!shortcut.keys.includes(keyPressedArray[i]))
+                    return false
+            }
+        return true
+    }
     
     const handleOnKeyUp = (event:any) =>  {
         setKeysPressed(prevKeys => {
