@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {listen} from '@tauri-apps/api/event'; 
-import { event } from "@tauri-apps/api";
+import shortcutData from '../assets/shortcutData.json';
 function ShortCutList(): JSX.Element {
     type ShortCut = {
         name : string
@@ -8,7 +8,7 @@ function ShortCutList(): JSX.Element {
         description : string
     }
     
-    const shortCutList:ShortCut[] = [{"name": "Task Manager","keys": ["control", "alt", "delete"], "description" : ""}, {"name" : "Select All", "keys" : ["control", "a"], "description" : ""}, {"name" : "Open Quick Settings", "keys" : ["meta", "a"], "description" : ""}, {"name": "Open File Explorer", "keys" : ["meta", "e"], "description" : ""}, {"name": "Cycle Through Windows", "keys" : ["alt", "esc"], "description": ""}]
+    const shortCutList:ShortCut[] = shortcutData
 
     const [filteredList, setFilteredList] = useState<ShortCut[]>([])
     const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set())
@@ -90,6 +90,7 @@ function ShortCutList(): JSX.Element {
    
     return (
         <div>
+            
         {(keysPressed.size > 0 ? filteredList : shortCutList).map(
           (shortcut, index) => (
             <div
@@ -102,8 +103,12 @@ function ShortCutList(): JSX.Element {
               </div>
             </div>
           )
-        )}
+        )
+        
+        } 
         </div>
+
+        
     )
 }
 

@@ -1,0 +1,27 @@
+[
+    {
+      "name": "Task Manager",
+      "keys": ["control", "alt", "delete"],
+      "description": ""
+    },
+    {
+      "name": "Select All",
+      "keys": ["control", "a"],
+      "description": ""
+    },
+    {
+      "name": "Open Quick Settings",
+      "keys": ["meta", "a"],
+      "description": ""
+    },
+    {
+      "name": "Open File Explorer",
+      "keys": ["meta", "e"],
+      "description": ""
+    },
+    {
+      "name": "Cycle Through Windows",
+      "keys": ["alt", "esc"],
+      "description": ""
+    }
+  ]
