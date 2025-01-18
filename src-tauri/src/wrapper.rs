@@ -1,10 +1,10 @@
-use rdev::{Key};
+use rdev::Key;
 
 pub trait KeyToString {
     fn to_lowercase_string(&self) -> String;
 }
-impl KeyToString for Key{
-    fn to_lowercase_string(&self) -> String{
+impl KeyToString for Key {
+    fn to_lowercase_string(&self) -> String {
         match self {
             Key::Alt => "alt".to_string(),
             Key::AltGr => "altgr".to_string(),
