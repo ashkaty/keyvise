@@ -1,11 +1,14 @@
 import ShortCutList from "./components/shortcutList";
-// import { invoke } from "@tauri-apps/api/core";
+import KeyComponent from "./components/key";
 import "./App.css";
 
 function App() {
 
   return (
-    <ShortCutList/>
+    <div>
+      <ShortCutList/>
+      <KeyComponent label="a" isPressed={false}/>
+    </div>
   );
 }
 

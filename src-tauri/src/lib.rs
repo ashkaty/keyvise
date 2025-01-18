@@ -1,9 +1,9 @@
 pub mod wrapper;
 
-use crate::wrapper::KeyToString;
-use rdev::{listen, Event, EventType, Key};
+use rdev::{Event, listen, EventType, Key};
 use std::thread;
-use tauri::{AppHandle, Emitter};
+use tauri::{Emitter, AppHandle};
+use crate::wrapper::KeyToString;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -11,20 +11,17 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+
 fn callback(event: Event, app_handle: AppHandle) {
     match event.event_type {
-        EventType::KeyPress(key) => app_handle
-            .emit("keyPressed", key.to_lowercase_string())
-            .unwrap(),
-        EventType::KeyRelease(key) => app_handle
-            .emit("keyReleased", key.to_lowercase_string())
-            .unwrap(),
+        EventType::KeyPress(key) => app_handle.emit("keyPressed", key.to_lowercase_string()).unwrap(),
+        EventType::KeyRelease(key) => app_handle.emit("keyReleased", key.to_lowercase_string()).unwrap(),
         _ => (),
     }
 }
 
 #[tauri::command]
-fn test(app_handle: AppHandle) {
+fn test(app_handle: AppHandle){
     app_handle.emit("keyPressed", "test payload").unwrap()
 }
 
@@ -32,7 +29,6 @@ fn test(app_handle: AppHandle) {
 pub fn run() {
     // thread::spawn(|| listen(callback));
     tauri::Builder::default()
-        .plugin(tauri_plugin_fs::init())
         .setup(move |app| {
             let app_handle = app.handle().clone();
             thread::spawn(move || {
@@ -41,7 +37,7 @@ pub fn run() {
                 })
             });
             Ok(())
-        })
+          })
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![greet, test])
         .run(tauri::generate_context!())
