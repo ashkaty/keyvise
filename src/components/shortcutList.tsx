@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
-
+import {listen} from '@tauri-apps/api/event'; 
+import { event } from "@tauri-apps/api";
 function ShortCutList(): JSX.Element {
     type ShortCut = {
         name : string
@@ -15,41 +16,68 @@ function ShortCutList(): JSX.Element {
     
     useEffect(() => {
         
-        const handleOnKeyDown = (event) =>  {
+        listen('keyPressed', (event:any) => {
             setKeysPressed(prevKeys => {
                 const updatedKeys = new Set(prevKeys)
-                updatedKeys.add(event.key.toLowerCase())
-                console.log(updatedKeys)
+                updatedKeys.add(event.payload)
+                // console.log(updatedKeys)
                 return (updatedKeys)
             })
-            
-        }
-
-        const filterList = () => {
-            
-            const updatedList = shortCutList.filter((shortcut) => {
-                return hasInvalidKey(shortcut)
-            })
-            console.log("Filtered List: ", updatedList)
-
-           
-            return updatedList
-        }
-        setFilteredList(() => {
-            const updatedList = filterList() 
-            return updatedList
+          });
+    
+    
+        listen('keyReleased', (event:any) => {
+        setKeysPressed(prevKeys => {
+            const updatedKeys = new Set(prevKeys)
+            updatedKeys.delete(event.payload)
+            // console.log(updatedKeys)
+            return (updatedKeys)
         })
-        document.addEventListener('keydown', handleOnKeyDown);
+        });
+  
        
-        document.addEventListener('keyup', handleOnKeyUp);
-        
+       
 
         return () =>{
-            document.removeEventListener('keydown', handleOnKeyDown);
-            document.removeEventListener('keyup', handleOnKeyUp);
+
         }
     }, [keysPressed]);
     
+    useEffect(() => {
+        window.addEventListener('keydown', handleOnKeyDown);
+        window.addEventListener('keyup', handleOnKeyUp)
+
+        return () => {
+            window.removeEventListener('keydown', handleOnKeyDown)
+            window.removeEventListener('keyup', handleOnKeyUp)
+        };
+        
+    }, [])
+
+
+
+    useEffect(() => {
+        console.log(filteredList)
+        setFilteredList(shortCutList.filter((shortcut) => hasInvalidKey(shortcut)))
+    }, [keysPressed])
+
+    const handleOnKeyDown = (event:KeyboardEvent) => {
+        setKeysPressed((prevKeys) => {
+            const updatedKeys = new Set(prevKeys)
+            console.log(event.key)
+            updatedKeys.add(event.key.toLowerCase())
+            return updatedKeys
+        })
+    }
+
+    const handleOnKeyUp = (event:KeyboardEvent) => {
+        setKeysPressed((prevKeys) => {
+            const updatedKeys = new Set(prevKeys)
+            updatedKeys.delete(event.key.toLowerCase())
+            return updatedKeys
+        })
+    }
+
     const hasInvalidKey = (shortcut:ShortCut) => {
         const keyPressedArray = Array.from(keysPressed)
             for (let i = 0; i < keyPressedArray.length; i++){
@@ -59,15 +87,7 @@ function ShortCutList(): JSX.Element {
         return true
     }
     
-    const handleOnKeyUp = (event:any) =>  {
-        setKeysPressed(prevKeys => {
-            const updatedKeys = new Set(prevKeys)
-            updatedKeys.delete(event.key.toLowerCase())
-            console.log(updatedKeys)
-            return (updatedKeys)
-        })
-        
-    }
+   
     return (
         <div>
         {(keysPressed.size > 0 ? filteredList : shortCutList).map(
@@ -86,6 +106,7 @@ function ShortCutList(): JSX.Element {
         </div>
     )
 }
+
     
 
 export default ShortCutList

@@ -13,15 +13,17 @@ fn greet(name: &str) -> String {
 
 
 fn callback(event: Event, app_handle: AppHandle) {
-
-
     match event.event_type {
-        EventType::KeyPress(key) => app_handle.emit('keyPressed', key.to_lowercase_string()),
-        EventType::KeyRelease(key) => app_handle.emit('keyReleased', key.to_lowercase_string()),
+        EventType::KeyPress(key) => app_handle.emit("keyPressed", key.to_lowercase_string()).unwrap(),
+        EventType::KeyRelease(key) => app_handle.emit("keyReleased", key.to_lowercase_string()).unwrap(),
         _ => (),
     }
 }
 
+#[tauri::command]
+fn test(app_handle: AppHandle){
+    app_handle.emit("keyPressed", "test payload").unwrap()
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -37,7 +39,7 @@ pub fn run() {
             Ok(())
           })
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, test])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
