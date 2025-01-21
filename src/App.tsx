@@ -6,8 +6,8 @@ function App() {
 
   return (
     <div>
-      <ShortCutList/>
       <Keyboard/>
+      <ShortCutList/>
     </div>
   );
 }
