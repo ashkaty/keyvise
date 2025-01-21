@@ -57,14 +57,14 @@ function ShortCutList(): JSX.Element {
 
 
     useEffect(() => {
-        console.log(filteredList)
+        // console.log(filteredList)
         setFilteredList(shortCutList.filter((shortcut) => hasInvalidKey(shortcut)))
     }, [keysPressed])
 
     const handleOnKeyDown = (event:KeyboardEvent) => {
         setKeysPressed((prevKeys) => {
             const updatedKeys = new Set(prevKeys)
-            console.log(event.key)
+            // console.log(event.key)
             updatedKeys.add(event.key.toLowerCase())
             return updatedKeys
         })

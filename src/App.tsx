@@ -1,5 +1,5 @@
 import ShortCutList from "./components/shortcutList";
-import KeyComponent from "./components/key";
+import Keyboard from "./components/keyboard";
 import "./App.css";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <ShortCutList/>
-      <KeyComponent label="a" isPressed={false}/>
+      <Keyboard/>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import KeySVG from '../assets/key.svg'
-
+import KeyPressedSVG from '../assets/KeyPressed.svg'
 
 
 function KeyComponent({ label, isPressed }: { label: string, isPressed:Boolean }): JSX.Element {
@@ -20,8 +20,11 @@ function KeyComponent({ label, isPressed }: { label: string, isPressed:Boolean }
     }
     return (
         <div style={containerStyle}>
-            <img src={KeySVG} width={50} height={50}/>
-            <p style={textStyle}>A</p>
+            {isPressed ? 
+                <img src={KeyPressedSVG} width={50} height={50}/> :
+                <img src={KeySVG} width={50} height={50}/> 
+            }
+            <p style={textStyle}>{label}</p>
         </div>
         
     );
