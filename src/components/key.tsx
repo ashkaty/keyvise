@@ -1,28 +1,37 @@
-import KeySVG from '../assets/key.svg'
-import KeyPressedSVG from '../assets/KeyPressed.svg'
+import '../App.css'
 
-
-function KeyComponent({ label, isPressed }: { label: string, isPressed:Boolean }): JSX.Element {
+function KeyComponent({ label, isPressed, size = 1}: { label: string, isPressed:Boolean, size: Number}): JSX.Element {
     
-    const containerStyle:React.CSSProperties = 
+    const containerStyle: React.CSSProperties = 
     {
         position:'relative',
-        display: 'inline-block'
+        display: 'inline-block',
     }
 
     const textStyle: React.CSSProperties =
     {
         position: 'absolute',
-        color:'#000000',
+        color:'white',
         fontSize: '20px',
         bottom: '0%',
         left: '36%',
     }
+
+
     return (
         <div style={containerStyle}>
-            {isPressed ? 
-                <img src={KeyPressedSVG} width={50} height={50}/> :
-                <img src={KeySVG} width={50} height={50}/> 
+            { size == 0 &&
+                isPressed ? 
+                    <div className='smallKeyPressed'/> :
+                    <div className = 'smallKey'/> 
+                
+            }
+
+            { size != 0 &&
+                isPressed ? 
+                    <div className='mediumKeyPressed'/> :
+                    <div className = 'mediumKey'/> 
+                
             }
             <p style={textStyle}>{label}</p>
         </div>

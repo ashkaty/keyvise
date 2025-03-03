@@ -1,6 +1,7 @@
 <svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_1_5)">
-<rect x="4" width="78" height="78" rx="10" fill="#087EAC"/>
+<rect x="4" width="78" height="78" rx="10" fill="#061217"/>
+<rect x="5.5" y="1.5" width="75" height="75" rx="8.5" stroke="#8A7909" stroke-width="3"/>
 </g>
 <defs>
 <filter id="filter0_d_1_5" x="0" y="0" width="86" height="86" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

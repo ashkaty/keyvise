@@ -6,8 +6,12 @@ function App() {
 
   return (
     <div>
-      <Keyboard/>
-      <ShortCutList/>
+      <div className="keyboardContainer">
+        <Keyboard/>
+      </div>
+      <div>
+        <ShortCutList/>
+      </div>
     </div>
   );
 }

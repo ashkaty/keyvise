@@ -4,7 +4,7 @@ import KeyComponent from './key';
 
 
 function Keyboard(){
-  const firstRowKeys = ["`", "1", "2", "3", "4", "5", "6", "7", "8","9", "0", "-", "="]
+  const firstRowKeys = ["`", "1", "2", "3", "4", "5", "6", "7", "8","9", "0", "-", "=", "Back"]
   const secondRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', "[", "]", "\\"];
   const thirdRowKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ";", "'"]
   const fourthRowKeys = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ",", ".", "?"]
@@ -41,46 +41,15 @@ function Keyboard(){
     };
 
   return (
-      <div>
-        
-        {firstRowKeys.map((key) => {
-            return(
-              <KeyComponent label = {key} isPressed = {pressedKeys.has(key.toUpperCase())} />
-        )
-        })}
-        
-        <br/>
-          {secondRowKeys.map((key) => {
-            return (
-              <KeyComponent label = {key} isPressed = {pressedKeys.has(key.toUpperCase())} />
-            )
-          })
-
-          }
-
-
-        <br/>
-          {thirdRowKeys.map((key) => {
-              return (
-                <KeyComponent label = {key} isPressed = {pressedKeys.has(key.toUpperCase())} />
-              )
-            })
-
-            }
-
-        
-        <br/>
-        
-        {fourthRowKeys.map((key) => {
-              return (
-                <KeyComponent label = {key} isPressed = {pressedKeys.has(key.toUpperCase())} />
-              )
-            })
-
-            }
-        
-
+    <div className="keyboard">
+    {[firstRowKeys, secondRowKeys, thirdRowKeys, fourthRowKeys].map((row, rowIndex) => (
+      <div key={rowIndex} className="row">
+        {row.map((key) => (
+          <KeyComponent key={key} label={key} isPressed={pressedKeys.has(key.toUpperCase())} />
+        ))}
       </div>
+    ))}
+  </div>
   );
 }
 export default Keyboard;
