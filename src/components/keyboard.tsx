@@ -11,6 +11,7 @@ function Keyboard(){
 
   const [pressedKeys, setPressedKeys] = React.useState<Set<String>>(new Set());
 
+ 
   React.useEffect(() => {
 
   
@@ -40,6 +41,10 @@ function Keyboard(){
       setPressedKeys(newPressedKeys)
     };
 
+    const keySize = (label) => {
+      if (label == "Tab" || label == "\\" || label == "Ctrl" || label == "Alt" || label == "Win") { return 1}
+      else if (label == "")
+    }
   return (
     <div className="keyboard">
     {[firstRowKeys, secondRowKeys, thirdRowKeys, fourthRowKeys].map((row, rowIndex) => (

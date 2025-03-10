@@ -32,8 +32,8 @@ html, body {
 }
 
 .smallKey {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: rgba(6, 18, 23, 1);
     border: 3px solid rgba(138, 121, 9, 1);
     border-radius: 10px;
@@ -41,24 +41,24 @@ html, body {
 }
 
 .smallKeyPressed {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: rgba(0, 64, 64, 1);
   border-radius: 10px;
 }
 
 .mediumKey {
   width: 110px;
-  height: 50px;
+  height: 40px;
   background-color: rgba(6, 18, 23, 1);
   border: 3px solid rgba(138, 121, 9, 1);
   border-radius: 10px;
 
 }
 
-.smallKeyPressed {
+.mediumKeyPressed {
 width: 110px;
-height: 50px;
+height: 40px;
 background-color: rgba(0, 64, 64, 1);
 border-radius: 10px;
 }
